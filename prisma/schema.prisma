@@ -1,0 +1,146 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String   @id @default(cuid())
+  name       String
+  email      String   @unique
+  role       Role     @default(EMPLOYEE)
+  department String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // Relations
+  bookings         Booking[]
+  expenses         Expense[]
+  approvalRequests ApprovalRequest[] @relation("RequesterApprovals")
+  approvedRequests ApprovalRequest[] @relation("ApproverApprovals")
+  travelerLocations TravelerLocation[]
+
+  @@map("users")
+}
+
+model Booking {
+  id          String        @id @default(cuid())
+  userId      String
+  type        BookingType
+  destination String
+  startDate   DateTime
+  endDate     DateTime
+  status      BookingStatus @default(PENDING)
+  cost        Float
+  currency    String        @default("USD")
+  details     Json?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  // Relations
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expenses Expense[]
+
+  @@map("bookings")
+}
+
+model Expense {
+  id          String        @id @default(cuid())
+  userId      String
+  bookingId   String?
+  category    String
+  amount      Float
+  currency    String        @default("USD")
+  description String
+  receipt     String?
+  status      ExpenseStatus @default(PENDING)
+  submittedAt DateTime      @default(now())
+  approvedAt  DateTime?
+  updatedAt   DateTime      @updatedAt
+
+  // Relations
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  booking Booking? @relation(fields: [bookingId], references: [id], onDelete: SetNull)
+
+  @@map("expenses")
+}
+
+model ApprovalRequest {
+  id         String            @id @default(cuid())
+  type       ApprovalType
+  requestId  String
+  requesterId String
+  approverId String?
+  status     ApprovalStatus    @default(PENDING)
+  comments   String?
+  createdAt  DateTime          @default(now())
+  updatedAt  DateTime          @updatedAt
+
+  // Relations
+  requester User @relation("RequesterApprovals", fields: [requesterId], references: [id], onDelete: Cascade)
+  approver  User? @relation("ApproverApprovals", fields: [approverId], references: [id], onDelete: SetNull)
+
+  @@map("approval_requests")
+}
+
+model TravelerLocation {
+  id          String   @id @default(cuid())
+  userId      String
+  latitude    Float
+  longitude   Float
+  address     String
+  isEmergency Boolean  @default(false)
+  timestamp   DateTime @default(now())
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("traveler_locations")
+}
+
+// Enums
+enum Role {
+  ADMIN
+  MANAGER
+  EMPLOYEE
+}
+
+enum BookingType {
+  FLIGHT
+  HOTEL
+  CAR
+  PACKAGE
+}
+
+enum BookingStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  COMPLETED
+}
+
+enum ExpenseStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum ApprovalType {
+  BOOKING
+  EXPENSE
+}
+
+enum ApprovalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
