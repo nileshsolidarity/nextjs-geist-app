@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Travelogix - Travel Management Tool</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: white;
+      color: black;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header, footer {
+      background-color: black;
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+    }
+    main {
+      flex-grow: 1;
+      max-width: 960px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    h1 {
+      margin: 0;
+      font-weight: 600;
+      font-size: 2rem;
+    }
+    h2 {
+      font-size: 1.75rem;
+      margin-bottom: 0.5rem;
+    }
+    h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+    p {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      color: #4a4a4a;
+    }
+    section {
+      margin-bottom: 2rem;
+      border: 1px solid #ddd;
+      border-radius: 0.5rem;
+      padding: 1rem 1.5rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      background-color: #fff;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    @media (min-width: 768px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    button {
+      width: 100%;
+      padding: 0.5rem 0;
+      border-radius: 0.375rem;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      transition: background-color 0.3s ease;
+    }
+    .btn-primary {
+      background-color: black;
+      color: white;
+    }
+    .btn-primary:hover {
+      background-color: #333;
+    }
+    .btn-secondary {
+      background-color: white;
+      color: black;
+      border: 1px solid black;
+    }
+    .btn-secondary:hover {
+      background-color: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Travelogix</h1>
+  </header>
+  <main>
+    <section>
+      <h2>Welcome to Travelogix</h2>
+      <p>Your end-to-end travel management platform. Manage bookings, track travelers, and analyze travel spend with ease.</p>
+    </section>
+
+    <section>
+      <h2>Booking Management</h2>
+      <p>Manage flights, hotels, cars, and packages with real-time inventory and seamless booking experience.</p>
+      <button class="btn-primary">New Booking</button>
+      <button class="btn-secondary">View Bookings</button>
+    </section>
+
+    <section>
+      <h2>Analytics & Reporting</h2>
+      <p>Interactive dashboards to track spend, bookings, and traveler activity.</p>
+      <button class="btn-primary">View Reports</button>
+      <button class="btn-secondary">Export Data</button>
+    </section>
+
+    <section>
+      <h2>Traveler Safety</h2>
+      <p>Real-time traveler tracking, alerts, and emergency notifications to keep your travelers safe.</p>
+      <button class="btn-primary">View Traveler Locations</button>
+      <button class="btn-secondary">Send Emergency Alert</button>
+    </section>
+
+    <section>
+      <h2>Expense Management</h2>
+      <p>Automated expense capture and integration with accounting systems.</p>
+      <button class="btn-primary">Add Expense</button>
+      <button class="btn-secondary">View Expenses</button>
+    </section>
+
+    <section>
+      <h2>Approval Workflow</h2>
+      <p>Customizable, multi-level approval for travel requests and policies.</p>
+      <button class="btn-primary">Submit Request</button>
+      <button class="btn-secondary">View Approvals</button>
+    </section>
+
+    <section>
+      <h2>User Management</h2>
+      <p>Role-based access and permissions for users and administrators.</p>
+      <button class="btn-primary">Add User</button>
+      <button class="btn-secondary">Manage Roles</button>
+    </section>
+
+    <section>
+      <h2>Localization</h2>
+      <p>Multilingual support and local compliance features such as GST for India.</p>
+      <button class="btn-primary">Select Language</button>
+      <button class="btn-secondary">Compliance Settings</button>
+    </section>
+
+    <section>
+      <h2>Security & Compliance</h2>
+      <p>Data encryption, secure authentication, and compliance with GDPR, PCI-DSS, and other regulations.</p>
+      <button class="btn-primary">Security Settings</button>
+      <button class="btn-secondary">Audit Logs</button>
+    </section>
+  </main>
+  <footer>
+    &copy; 2024 Travelogix. All rights reserved.
+  </footer>
+</body>
+</html>
